@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <h1 class="headings">Rock Paper Scissors</h1>
+    <h2 class="headings">Round 1</h2>
+    <div id="play-area">
+      <div id="player-side">
+        <h3 id="score" class="headings">Score: 0</h3>
+        <div class="buttons">
+          <button class="selection rock-icon">rock</button
+          ><button class="selection paper-icon">paper</button
+          ><button class="selection scissors-icon">scissors</button>
+        </div>
+      </div>
+      <div id="computer-side">
+        <h3 id="score" class="headings">Score: 0</h3>
+        <div class="buttons">
+          <span class="hidden selection rock-icon"></span
+          ><span class="loading"></span
+          ><span class="hidden selection scissors-icon"></span>
+        </div>
+      </div>
+    </div>
+    <h3 class="headings" id="result"></h3>
     <script src="main.js"></script>
   </body>
 </html>

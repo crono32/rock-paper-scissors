@@ -1,32 +1,44 @@
+const ROCK = "rock";
+const PAPER = "paper";
+const SCISSORS = "scissors";
+
 function computerPlay() {
     let randomNum = Math.floor(Math.random() * 3);
     if (randomNum === 0) {
-        return "Rock";
+        return ROCK;
     } else if (randomNum === 1) {
-        return "Paper";
+        return PAPER;
     } 
-    return "Scissors";
+    return SCISSORS;
 }
 
 function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
 
+    let message;
     if (playerSelection === computerSelection) {
-        return "tie";
+        showResult("Tie!");
     }
-    else if (playerSelection === "rock" && computerSelection === "scissors"
-        || playerSelection === "paper" && computerSelection === "rock"
-        || playerSelection === "scissors" && computerSelection === "paper") {
-            return "player";
+    else if (playerSelection === ROCK && computerSelection === SCISSORS ||  
+    playerSelection === PAPER && computerSelection === ROCK || 
+    playerSelection === SCISSORS && computerSelection === PAPER) {
+        showResult(`You win! ${capitalizeString(playerSelection)} beats ${capitalizeString(computerSelection)}.`);
         }
-    return "computer";
+    else {
+        showResult(`You lose! ${capitalizeString(computerSelection)} beats ${capitalizeString(playerSelection)}.`);
+    }
 }
 
 function capitalizeString(string) {
     let firstLetter = string.substr(0, 1);
     firstLetter = firstLetter.toUpperCase();
-    return firstLetter + string.substr(1);
+    return firstLetter + string.substr(1).toLowerCase();
+}
+
+function showResult(result) {
+    const resultHeading = document.querySelector("#result");
+    resultHeading.textContent = result;
 }
 
 function game() {
@@ -36,22 +48,6 @@ function game() {
     let playerSelection;
     let computerSelection;
     let roundWinner;
-
-    for (let i = 0; i < 5; i++) {
-        playerSelection = capitalizeString(prompt("Rock, paper, or scissors?"));
-        computerSelection = capitalizeString(computerPlay());
-        roundWinner = playRound(playerSelection, computerSelection);
-
-        if (roundWinner === "tie") {
-            console.log("Tie!");
-        } else if (roundWinner === "player") {
-            playerScore++;
-            console.log(`You win! ${playerSelection} beats ${computerSelection}.`);
-        } else {
-            computerScore++;
-            console.log(`You lose! ${computerSelection} beats ${playerSelection}.`);
-        }
-    }
 
     console.log(`Final scores:\nPlayer: ${playerScore}\nComputer: ${computerScore}.`)
     
@@ -64,4 +60,9 @@ function game() {
     }
 }
 
-game();
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        playRound(e.target.textContent, computerPlay());
+    });
+});
