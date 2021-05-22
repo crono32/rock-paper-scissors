@@ -71,7 +71,7 @@ function prepareNextRound() {
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
     button.classList.remove("selected");
-    button.setAttribute("disabled", "false");
+    button.removeAttribute("disabled");
     button.classList.remove("hidden");
   });
 
@@ -136,26 +136,7 @@ function handleButtonClick(button) {
     score.textContent = `Score: ${computerScore}`;
   }
 
-  console.log("timer start");
-  setTimeout(() => {
-    updateResultText("");
-
-    button.removeAttribute("disabled");
-    buttons.forEach((button) => {
-      button.classList.remove("selected");
-      button.classList.remove("hidden");
-    });
-
-    computerIcon.classList.remove(
-      "rock",
-      "paper",
-      "scissors",
-      "computer-selection"
-    );
-    computerIcon.classList.add("loading");
-
-    updateRoundNumber();
-  }, 3000);
+  setTimeout(prepareNextRound, 3000);
 }
 
 const buttons = document.querySelectorAll("button");
