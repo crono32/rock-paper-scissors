@@ -49,7 +49,7 @@ function game() {
     let computerSelection;
     let roundWinner;
 
-    console.log(`Final scores:\nPlayer: ${playerScore}\nComputer: ${computerScore}.`)
+    console.log(`Final scores:\nPlayer: ${playerScore}\nComputer: ${computerScore}.`);
     
     if (playerScore > computerScore) {
         console.log("You win!");
@@ -62,7 +62,15 @@ function game() {
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
-    button.addEventListener("click", (e) => {
-        playRound(e.target.textContent, computerPlay());
+    button.addEventListener("click", () => {
+        console.log(button.textContent);
+        playRound(button.textContent, computerPlay());
+        button.classList.add("selected");
+        button.setAttribute("disabled", "true");
+        buttons.forEach(otherButton => {
+            if (otherButton.textContent !== button.textContent) {
+                otherButton.classList.add("hidden");
+            }
+        });
     });
 });

@@ -242,10 +242,15 @@ button:hover {
 }
 
 .hidden {
-  background-image: none;
+  height: 0;
 }
 
 h3.headings {
   font-size: 40px;
   text-transform: none;
+}
+
+button.selected {
+  box-shadow: none;
+  cursor: default;
 }
