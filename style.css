@@ -212,15 +212,15 @@ button:hover {
   box-shadow: 0 0 10px 1px rgb(85, 85, 85);
 }
 
-.rock-icon {
+.rock {
   background-image: url("rock.png");
 }
 
-.paper-icon {
+.paper {
   background-image: url("paper.png");
 }
 
-.scissors-icon {
+.scissors {
   background-image: url("scissors.png");
 }
 
@@ -254,4 +254,13 @@ h3.headings {
 button.selected {
   box-shadow: none;
   cursor: default;
+}
+
+.computer-selection {
+  display: inline-block;
+  width: 180px;
+  height: 200px;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
 }

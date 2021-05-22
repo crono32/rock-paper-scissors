@@ -75,7 +75,8 @@ buttons.forEach(button => {
             }
         });
 
-        const loadingIcon = document.querySelector("#computer-selection");
+        const loadingIcon = document.querySelector("#computer");
         loadingIcon.classList.remove("loading");
+        loadingIcon.classList.add(computerSelection, "computer-selection");
     });
 });
