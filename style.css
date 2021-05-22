@@ -168,7 +168,7 @@ h2 {
   width: 75%;
   height: 400px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
 }
 
 #player-side,
@@ -263,4 +263,25 @@ button.selected {
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
+}
+
+@media (max-width: 1000px) {
+  #play-area {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  #player-side {
+    width: auto;
+  }
+
+  .score {
+    padding: 10px;
+  }
+
+  #player-side,
+  #computer-side {
+    padding: 20px;
+  }
 }
