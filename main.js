@@ -2,6 +2,9 @@ const ROCK = "rock";
 const PAPER = "paper";
 const SCISSORS = "scissors";
 
+let playerScore = 0;
+let computerScore = 0;
+
 function computerPlay() {
     let randomNum = Math.floor(Math.random() * 3);
     if (randomNum === 0) {
@@ -16,17 +19,16 @@ function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
 
-    let message;
     if (playerSelection === computerSelection) {
-        showResult("Tie!");
+        return "tie";
     }
     else if (playerSelection === ROCK && computerSelection === SCISSORS ||  
-    playerSelection === PAPER && computerSelection === ROCK || 
-    playerSelection === SCISSORS && computerSelection === PAPER) {
-        showResult(`You win! ${capitalizeString(playerSelection)} beats ${capitalizeString(computerSelection)}.`);
+            playerSelection === PAPER && computerSelection === ROCK || 
+            playerSelection === SCISSORS && computerSelection === PAPER) {
+        return "player";
         }
     else {
-        showResult(`You lose! ${capitalizeString(computerSelection)} beats ${capitalizeString(playerSelection)}.`);
+        return "computer";
     }
 }
 
@@ -36,9 +38,18 @@ function capitalizeString(string) {
     return firstLetter + string.substr(1).toLowerCase();
 }
 
-function showResult(result) {
+function showRoundResult(result, playerSelection, computerSelection) {
+    let text;
+    if (result === "player") {
+        text = `You win! ${capitalizeString(playerSelection)} beats ${capitalizeString(computerSelection)}.`;
+    } else if (result === "computer") {
+        text = `You lose! ${capitalizeString(computerSelection)} beats ${capitalizeString(playerSelection)}.`;
+    } else {
+        text = "Tie!";
+    }
+
     const resultHeading = document.querySelector("#result");
-    resultHeading.textContent = result;
+    resultHeading.textContent = text;
 }
 
 function game() {
@@ -63,10 +74,11 @@ function game() {
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
     button.addEventListener("click", () => {
-        console.log(button.textContent);
         let playerSelection = button.textContent;
         let computerSelection = computerPlay();
-        playRound(playerSelection, computerSelection);
+        let roundWinner = playRound(playerSelection, computerSelection);
+        showRoundResult(roundWinner, playerSelection, computerSelection);
+
         button.classList.add("selected");
         button.setAttribute("disabled", "true");
         buttons.forEach(otherButton => {
@@ -78,5 +90,15 @@ buttons.forEach(button => {
         const loadingIcon = document.querySelector("#computer");
         loadingIcon.classList.remove("loading");
         loadingIcon.classList.add(computerSelection, "computer-selection");
+
+        if (roundWinner === "player") {
+            playerScore++;
+            const score = document.querySelector("#player-side .score");
+            score.textContent = `Score: ${playerScore}`;
+        } else if (roundWinner === "computer") {
+            computerScore++;
+            const score = document.querySelector("#computer-side .score");
+            score.textContent = `Score: ${computerScore}`;
+        }
     });
 });
