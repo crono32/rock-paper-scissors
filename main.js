@@ -64,7 +64,9 @@ const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
     button.addEventListener("click", () => {
         console.log(button.textContent);
-        playRound(button.textContent, computerPlay());
+        let playerSelection = button.textContent;
+        let computerSelection = computerPlay();
+        playRound(playerSelection, computerSelection);
         button.classList.add("selected");
         button.setAttribute("disabled", "true");
         buttons.forEach(otherButton => {
@@ -72,5 +74,8 @@ buttons.forEach(button => {
                 otherButton.classList.add("hidden");
             }
         });
+
+        const loadingIcon = document.querySelector("#computer-selection");
+        loadingIcon.classList.remove("loading");
     });
 });
