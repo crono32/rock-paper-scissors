@@ -87,21 +87,6 @@ function prepareNextRound() {
   updateRoundNumber();
 }
 
-function game() {
-  let playerScore = 0;
-  let computerScore = 0;
-  let round = 1;
-
-  const buttons = document.querySelectorAll("button");
-
-  let buttonClicked;
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      buttonClicked = button;
-    });
-  });
-}
-
 function handleButtonClick(button) {
   let playerSelection = button.textContent;
   let computerSelection = computerPlay();
