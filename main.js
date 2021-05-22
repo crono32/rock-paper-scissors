@@ -103,7 +103,6 @@ function game() {
 }
 
 function handleButtonClick(button) {
-  console.log("click");
   let playerSelection = button.textContent;
   let computerSelection = computerPlay();
   let roundWinner = playRound(playerSelection, computerSelection);
@@ -115,7 +114,7 @@ function handleButtonClick(button) {
   updateResultText(resultText);
 
   button.classList.add("selected");
-  //   button.setAttribute("disabled", "true");
+  button.setAttribute("disabled", "true");
   let buttons = Array.from(button.parentElement.children);
   buttons.forEach((otherButton) => {
     if (otherButton.textContent !== button.textContent) {
@@ -141,6 +140,7 @@ function handleButtonClick(button) {
   setTimeout(() => {
     updateResultText("");
 
+    button.removeAttribute("disabled");
     buttons.forEach((button) => {
       button.classList.remove("selected");
       button.classList.remove("hidden");
