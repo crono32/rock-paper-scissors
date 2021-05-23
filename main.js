@@ -1,6 +1,7 @@
 const ROCK = "rock";
 const PAPER = "paper";
 const SCISSORS = "scissors";
+const MAX_SCORE = 5;
 
 let playerScore = 0;
 let computerScore = 0;
@@ -60,21 +61,21 @@ function updateResultText(text) {
   resultHeading.textContent = text;
 }
 
-function updateRoundNumber() {
+function updateRoundText() {
   const roundHeader = document.querySelector("#round");
-  roundHeader.textContent = `Round ${++round}`;
+  roundHeader.textContent = `Round ${round}`;
 }
 
-function prepareNextRound() {
-  updateResultText("");
-
+function resetPlayerSide() {
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
     button.classList.remove("selected");
     button.removeAttribute("disabled");
     button.classList.remove("hidden");
   });
+}
 
+function resetComputerSide() {
   const computerIcon = document.querySelector("#computer");
   computerIcon.classList.remove(
     "rock",
@@ -83,8 +84,34 @@ function prepareNextRound() {
     "computer-selection"
   );
   computerIcon.classList.add("loading");
+}
 
-  updateRoundNumber();
+function prepareNextRound() {
+  resetPlayerSide();
+  resetComputerSide();
+
+  if (playerScore === MAX_SCORE || computerScore === MAX_SCORE) {
+    round = 1;
+    playerScore = 0;
+    computerScore = 0;
+    updatePlayerScoreText();
+    updateComputerScoreText();
+  } else {
+    round++;
+  }
+
+  updateRoundText();
+  updateResultText("");
+}
+
+function updatePlayerScoreText() {
+  const score = document.querySelector("#player-side .score");
+  score.textContent = `Score: ${playerScore}/${MAX_SCORE}`;
+}
+
+function updateComputerScoreText() {
+  const score = document.querySelector("#computer-side .score");
+  score.textContent = `Score: ${computerScore}/${MAX_SCORE}`;
 }
 
 function handleButtonClick(button) {
@@ -113,12 +140,18 @@ function handleButtonClick(button) {
 
   if (roundWinner === "player") {
     playerScore++;
-    const score = document.querySelector("#player-side .score");
-    score.textContent = `Score: ${playerScore}`;
+    updatePlayerScoreText();
   } else if (roundWinner === "computer") {
     computerScore++;
-    const score = document.querySelector("#computer-side .score");
-    score.textContent = `Score: ${computerScore}`;
+    updateComputerScoreText();
+  }
+
+  if (playerScore === MAX_SCORE || computerScore === MAX_SCORE) {
+    if (playerScore === MAX_SCORE) {
+      updateResultText("YOU WIN! Preparing next match...");
+    } else {
+      updateResultText("YOU LOSE! Preparing next match...");
+    }
   }
 
   setTimeout(prepareNextRound, 3000);

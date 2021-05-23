@@ -1,1 +1,3 @@
-Rock paper scissors game running in the JavaScript console.
+Rock paper scissors game made using JavaScript.
+
+Main skills practiced: basic JavaScript, DOM manipulation
